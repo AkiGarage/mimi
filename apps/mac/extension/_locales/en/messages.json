@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "Mimi"
+  },
+  "extensionDescription": {
+    "message": "Listen to user-opened videos as translated audio through your local Mimi helper."
+  },
+  "actionTitle": {
+    "message": "Open Mimi"
+  }
+}

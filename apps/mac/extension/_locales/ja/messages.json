@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "Mimi"
+  },
+  "extensionDescription": {
+    "message": "開いている動画を、ローカルのMimiヘルパー経由で翻訳音声として聞けます。"
+  },
+  "actionTitle": {
+    "message": "Mimiを開く"
+  }
+}

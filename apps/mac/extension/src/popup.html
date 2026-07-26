@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mimi</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="panel">
+      <header class="brand-row">
+        <div class="brand">
+          <img src="../icons/icon-32.png" alt="" width="32" height="32">
+          <h1>Mimi</h1>
+        </div>
+        <div class="brand-actions">
+          <div class="ui-language-switch" role="group" aria-labelledby="uiLanguageLabel">
+            <span id="uiLanguageLabel">UI language</span>
+            <span class="ui-language-segments">
+              <button id="uiLanguageJa" type="button" data-ui-language="ja" aria-pressed="false">日</button>
+              <button id="uiLanguageEn" type="button" data-ui-language="en" aria-pressed="true">En</button>
+            </span>
+          </div>
+          <p id="statusText">Ready</p>
+        </div>
+      </header>
+
+      <label class="language-picker">
+        <span id="targetLanguageLabel">Listen in</span>
+        <select id="targetLanguage"></select>
+      </label>
+      <fieldset class="provider-picker">
+        <legend id="providerLabel">翻訳エンジン</legend>
+        <div id="providerOptions" class="provider-segments" role="radiogroup" aria-labelledby="providerLabel">
+          <button id="providerGeminiButton" class="provider-option" type="button" role="radio" data-provider="gemini" aria-checked="true" aria-pressed="true">
+            <span class="provider-title-row">
+              <span id="providerGeminiName" class="provider-name">Gemini Live</span>
+              <span class="provider-check" aria-hidden="true">✓</span>
+            </span>
+            <span id="providerGeminiBadge" class="provider-badge provider-badge-free">無料・おすすめ</span>
+            <span id="providerGeminiDescription" class="provider-description">Mimiの標準設定</span>
+          </button>
+          <button id="providerOpenAIButton" class="provider-option" type="button" role="radio" data-provider="openai" aria-checked="false" aria-pressed="false">
+            <span class="provider-title-row">
+              <span id="providerOpenAIName" class="provider-name">GPT Realtime</span>
+              <span class="provider-check" aria-hidden="true">✓</span>
+            </span>
+            <span id="providerOpenAIBadge" class="provider-badge provider-badge-paid">有料・高品質</span>
+            <span id="providerOpenAIDescription" class="provider-description">自然さを優先</span>
+          </button>
+        </div>
+        <p id="providerHint" class="provider-hint">通常は無料のGeminiを使います。GPTはAPI課金を理解して選ぶ場合のみ。自動では切り替わりません。</p>
+      </fieldset>
+
+      <p id="sourceLine" class="source-line">Auto-detect source</p>
+      <p id="reasonText" class="reason-line">Ready to listen</p>
+
+      <section id="sessionControls" class="controls" aria-label="Session controls">
+        <button id="startButton" class="primary-action" type="button">Start</button>
+        <button id="stopButton" class="secondary-action" type="button" disabled>Stop</button>
+      </section>
+
+      <section id="volumeControls" class="volume-controls" aria-label="Volume controls">
+        <label>
+          <span class="range-label">
+            <span id="originalVolumeLabel">Original</span>
+            <output id="originalVolumeValue" for="originalVolume">35%</output>
+          </span>
+          <input id="originalVolume" type="range" min="0" max="100" value="35">
+        </label>
+
+        <label>
+          <span class="range-label">
+            <span id="translatedVolumeLabel">Translated</span>
+            <output id="translatedVolumeValue" for="translatedVolume">85%</output>
+          </span>
+          <input id="translatedVolume" type="range" min="0" max="100" value="85">
+        </label>
+      </section>
+
+      <details class="advanced-panel">
+        <summary id="advancedSummary">Advanced</summary>
+        <section id="advancedContent" class="advanced-content" aria-label="Advanced details">
+          <button id="restartButton" class="restart-action" type="button">Restart Server &amp; Start</button>
+          <section id="settingsGrid" class="settings-grid" aria-label="API usage and auto-stop">
+            <label>
+              <span id="monthlyLimitEnabledLabel">Paid-key monthly protection</span>
+              <span class="setting-row">
+                <input id="monthlyLimitEnabledInput" type="checkbox">
+              </span>
+              <span id="limitMinutesLabel">Monthly protection time</span>
+              <span class="setting-row">
+                <input id="limitMinutesInput" type="number" min="1" max="1440" step="1" value="30">
+                <button id="saveLimitButton" type="button">Save</button>
+              </span>
+            </label>
+            <label>
+              <span id="autoStopLabel">Auto-stop timer</span>
+              <span class="setting-row">
+                <input id="autoStopMinutesInput" type="number" min="1" max="120" step="1" value="30">
+                <button id="saveAutoStopButton" type="button">Save</button>
+              </span>
+            </label>
+            <button id="resetUsageButton" class="settings-action" type="button">使用記録をリセット</button>
+            <button id="openKeySettingsButton" class="settings-action" type="button">APIキーを設定する</button>
+            <button id="copyDiagnosticsButton" class="settings-action" type="button" aria-live="polite" data-copy-state="idle">診断ログをコピー</button>
+          </section>
+
+          <div class="detail-grid">
+            <div>
+              <span id="sourceDetailLabel">Source</span>
+              <strong id="sourceText">auto detect</strong>
+            </div>
+            <div>
+              <span id="inputDetailLabel">Audio sent</span>
+              <strong id="inputText">0 KB</strong>
+            </div>
+            <div>
+              <span id="outputDetailLabel">Output</span>
+              <strong id="outputText">0 KB</strong>
+            </div>
+            <div>
+              <span id="errorDetailLabel">Error</span>
+              <strong id="errorText">none</strong>
+            </div>
+            <div>
+              <span id="diagnosticDetailLabel">Latest diagnostic</span>
+              <strong id="diagnosticText">none</strong>
+            </div>
+            <div>
+              <span id="extensionDetailLabel">Extension</span>
+              <strong id="extensionText">unknown</strong>
+            </div>
+            <div>
+              <span id="transcriptDetailLabel">Transcript</span>
+              <strong id="transcriptText">none</strong>
+            </div>
+            <div>
+              <span id="usageDetailLabel">Monthly API protection</span>
+              <strong id="usageText">Monthly protection off</strong>
+            </div>
+            <div>
+              <span id="costDetailLabel">Paid-tier estimate</span>
+              <strong id="costText">$0.0000 / ¥0</strong>
+            </div>
+            <div>
+              <span id="tokenDetailLabel">Est. tokens</span>
+              <strong id="tokenText">in 0 / out 0</strong>
+            </div>
+          </div>
+          <p id="advancedNote" class="advanced-note">Free keys can run without Mimi monthly protection. Auto-stop prevents forgotten sessions.</p>
+        </section>
+      </details>
+    </main>
+
+    <script src="languages.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

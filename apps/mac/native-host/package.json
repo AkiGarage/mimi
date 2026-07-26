@@ -1,0 +1,12 @@
+{
+  "name": "jp-dub-native-host",
+  "private": true,
+  "version": "0.0.1",
+  "type": "commonjs",
+  "scripts": {
+    "check": "node --check ../shared/extensionOrigin.cjs && node --check bin/jp-dub-native-host.js && node --check src/hostManifest.js && node --check src/nativeProtocol.js && node --check src/serverControl.js && node --check scripts/install.js && node --check scripts/doctor.js",
+    "doctor": "node scripts/doctor.js",
+    "install": "node scripts/install.js",
+    "test": "node --test test/*.test.js"
+  }
+}
