@@ -1,4 +1,12 @@
-# Mimi
+<p align="center">
+  <img src="apps/mac/MimiForMac/Packaging/MimiAppIcon.png" alt="Mimi app icon" width="240">
+</p>
+
+<h1 align="center">Mimi</h1>
+
+<p align="center">
+  Live translated audio for Mac and Chrome
+</p>
 
 Mimi is a local-first Mac project for listening to live translated audio. This
 source candidate contains three separate products:

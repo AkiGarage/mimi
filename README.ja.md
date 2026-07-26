@@ -1,4 +1,12 @@
-# Mimi
+<p align="center">
+  <img src="apps/mac/MimiForMac/Packaging/MimiAppIcon.png" alt="Mimi アプリアイコン" width="240">
+</p>
+
+<h1 align="center">Mimi</h1>
+
+<p align="center">
+  MacとChromeで、ライブ翻訳音声を聞く
+</p>
 
 Mimi は、Mac 上でライブ翻訳音声を聞くための local-first プロジェクト
 です。1つの source repository に次の3製品を収録しています。
