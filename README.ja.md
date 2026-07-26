@@ -33,15 +33,17 @@ notarization が利用できないため、一般ユーザー向けの配布済�
 
 ## Privacy と BYOK
 
-BYOK (Bring Your Own Key) 方式です。Gemini API key はユーザー自身が用意し、
-Mac 側で設定します。Chrome extension は key を保存しません。通常の setup
-では macOS Keychain を使い、`.env.example` には名前だけを記載します。実際の
+BYOK (Bring Your Own Key) 方式です。Gemini と OpenAI の API key は Mac 側で
+設定します。Chrome extension は key を保存しません。通常の setup では設定した
+key を macOS Keychain に保存し、`.env.example` には名前だけを記載します。実際の
 `.env` はローカルに置き、Git へ commit しないでください。
 
 Listening 中は Chrome extension から local Mimi server へタブ音声を送り、
-local server が Gemini Live Translate へ live stream を送る場合があります。
-広告 tracking や自動診断 upload はありません。key、transcript、private URL、
-個人データを issue、log、screenshot、pull request に含めないでください。
+local server はユーザーが明示的に選択した provider、Gemini Live Translate
+(Google) または GPT Realtime (OpenAI) にだけ live stream を送ります。選択した
+provider の現行 terms、data handling と retention、利用制限、料金が適用されます。
+広告 tracking や自動診断 upload はありません。key、transcript、private URL、個人
+データを issue、log、screenshot、pull request に含めないでください。
 [SECURITY.md](SECURITY.md) と [privacy policy](docs/product/privacy-policy.md)
 も確認してください。
 

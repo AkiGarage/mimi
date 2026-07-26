@@ -38,16 +38,19 @@ VoiceOver, and long-duration hardware acceptance remain limited live checks.
 
 ## Privacy and BYOK
 
-Mimi uses BYOK (Bring Your Own Key). The Gemini API key belongs to you and is
-configured on the Mac side. The Chrome extension never stores the key. Normal
-setup stores it in macOS Keychain; `.env.example` documents names only, and a
+Mimi uses BYOK (Bring Your Own Key). Gemini and OpenAI API keys are configured
+on the Mac side; the Chrome extension never stores them. Normal setup stores a
+configured key in macOS Keychain; `.env.example` documents names only, and a
 real `.env` must stay local and uncommitted.
 
 When listening, the extension sends current-tab audio to the local Mimi server,
-which may send the live stream to Gemini Live Translate. Mimi does not sell
-audio, use advertising trackers, or upload a local diagnostic bundle
-automatically. Do not place keys, transcripts, private URLs, or personal data
-in issues, logs, screenshots, or pull requests. See
+which sends the live stream only to the provider you explicitly select:
+Gemini Live Translate (Google) or GPT Realtime (OpenAI). The selected
+provider's current terms, data handling and retention practices, usage limits,
+and charges apply. Mimi does not sell audio, use advertising trackers, or
+upload a local diagnostic bundle automatically. Do not place keys, transcripts,
+private URLs, or personal data in issues, logs, screenshots, or pull requests.
+See
 [SECURITY.md](SECURITY.md) and [docs/product/privacy-policy.md](docs/product/privacy-policy.md).
 
 Internal compatibility identifiers still contain historical `jp-dub` names in

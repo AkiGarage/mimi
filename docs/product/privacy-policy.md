@@ -14,8 +14,9 @@ finished-video exporter, cloud storage service, or managed translation API.
 ## Data boundary
 
 After the user starts listening, the Chrome extension can capture the current
-tab audio and send it to the local Mimi server. The local server can send that
-live audio to Gemini Live Translate using the user's own API key. The native Mac
+tab audio and send it to the local Mimi server. The local server sends that live
+audio only to the provider the user explicitly selects: Gemini Live Translate
+(Google) or GPT Realtime (OpenAI), using the user's own API key. The native Mac
 app follows the same live-only goal for a selected audio source.
 
 Mimi does not intentionally create subtitle files, transcript archives,
@@ -25,8 +26,8 @@ remain redacted and local.
 
 ## API key and local storage
 
-The Gemini API key is configured on the Mac side and is not stored in the
-Chrome extension. Normal setup uses macOS Keychain. A local development
+Gemini and OpenAI API keys are configured on the Mac side and are not stored in
+the Chrome extension. Normal setup uses macOS Keychain. A local development
 `.env` may be used only on the developer's machine; `.env.example` contains no
 secret values. The extension stores UI preferences such as language and volume
 locally. The helper stores setup state and safety-limit counters locally.
@@ -38,9 +39,9 @@ support messages.
 ## User controls and limitations
 
 The user starts and stops translation from Mimi for Chrome or Mimi for Mac and
-can uninstall the extension and helper. Gemini availability, model behavior,
-limits, and retention are controlled by the user's Gemini account and Google's
-current terms. The source candidate has not made a public Store or binary
+can uninstall the extension and helper. The selected provider's current terms,
+data handling and retention practices, availability, usage limits, and charges
+apply and may change. The source candidate has not made a public Store or binary
 distribution promise; hardware, permission, long-duration, and accessibility
 acceptance remain limited.
 
