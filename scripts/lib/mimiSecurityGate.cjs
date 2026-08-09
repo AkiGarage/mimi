@@ -33,8 +33,6 @@ function buildCommandPlan(repoRoot, workRoot) {
     npm("native_host_tests", "apps/mac/native-host", ["test"], "command_and_origin"),
     component("mimi_app_tests", "apps/mac/MimiApp", tools.swift, ["test"], "update_integrity"),
     component("security_gate_tests", "", tools.node, ["--test", "scripts/test/mimi-security-gate.test.cjs"], "gate_fail_closed"),
-    component("release_baseline", "", tools.node, ["scripts/validate-release-baseline.cjs"], "release_identity"),
-    component("chrome_submission", "", tools.node, ["scripts/validate-chrome-store-submission.cjs"], "release_identity"),
     component("chrome_package", "", tools.node, [
       "scripts/package-chrome-extension.cjs",
       `--out=${path.join(workRoot, "chrome-package")}`,

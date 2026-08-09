@@ -53,6 +53,19 @@ test("security gate uses a fixed shell-free validation plan", () => {
   assert.equal(plan.some((check) => ["npm", "swift", "git"].includes(check.command)), false);
 });
 
+test("security gate plan references only existing local script entrypoints", () => {
+  const plan = buildCommandPlan(repoRoot, "/tmp/mimi-security-work");
+  const scriptEntrypoints = plan.flatMap((check) => check.args
+    .filter((arg) => /^(?:scripts|apps)\/.+\.(?:cjs|js)$/.test(arg))
+    .map((arg) => ({ check, arg })));
+
+  assert.ok(scriptEntrypoints.length > 0);
+  for (const { check, arg } of scriptEntrypoints) {
+    const entrypoint = path.resolve(check.cwd, arg);
+    assert.equal(fs.statSync(entrypoint).isFile(), true, `${check.id} references missing ${arg}`);
+  }
+});
+
 test("dependency inspection accepts the reviewed exact ws package and lockfile", () => {
   assert.deepEqual(inspectDependencies(repoRoot).problems, []);
 });
