@@ -42,6 +42,7 @@ const net = require("node:net");
 const os = require("node:os");
 const path = require("node:path");
 const { spawn } = require("node:child_process");
+const WebSocketClient = require("ws");
 const {
   CANONICAL_EXTENSION_ID,
   CANONICAL_EXTENSION_ORIGIN,
@@ -760,6 +761,30 @@ test("local websocket rejects arbitrary browser origins", async () => {
   const response = await rawUpgrade(port, "https://example.com");
   server.close();
   assert.match(response, /^HTTP\/1\.1 403 Forbidden/);
+});
+
+test("local websocket answers a client close with a bounded normal close frame", async () => {
+  const server = http.createServer();
+  attachWebSocketServer(server, {
+    path: "/ws",
+    isAllowedOrigin: () => true,
+    onConnection: () => {},
+  });
+  await listen(server);
+  const ws = new WebSocketClient(`ws://127.0.0.1:${server.address().port}/ws`);
+
+  try {
+    const result = await new Promise((resolve, reject) => {
+      ws.once("error", reject);
+      ws.once("close", (code, reason) => resolve({ code, reason: reason.toString() }));
+      ws.once("open", () => ws.close(1000, "done"));
+    });
+
+    assert.equal(result.code, 1000);
+    assert.equal(result.reason, "");
+  } finally {
+    await closeServer(server);
+  }
 });
 
 test("real mode requires an explicit extension origin", () => {

@@ -88,6 +88,9 @@ function createPeer(socket) {
 
 function handleFrame(socket, state, frame) {
   if (frame.opcode === 0x8) {
+    const normalClosure = Buffer.allocUnsafe(2);
+    normalClosure.writeUInt16BE(1000);
+    sendFrame(socket, 0x8, normalClosure);
     socket.end();
     return;
   }
