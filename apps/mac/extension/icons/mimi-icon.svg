@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Mimi">
+  <defs>
+    <linearGradient id="bg" x1="18" y1="12" x2="110" y2="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#24463b"/>
+      <stop offset="0.55" stop-color="#17251f"/>
+      <stop offset="1" stop-color="#b95d30"/>
+    </linearGradient>
+    <linearGradient id="wave" x1="32" y1="30" x2="96" y2="98" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6f0dc"/>
+      <stop offset="1" stop-color="#8fd7c6"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <circle cx="94" cy="34" r="11" fill="#f6f0dc" opacity="0.96"/>
+  <path
+    d="M39 72c0-18 12-31 29-31 13 0 23 8 23 20 0 10-6 16-14 20-7 4-10 7-10 14v2c0 6-5 10-11 10s-11-4-11-10v-7c0-12 7-19 18-25 4-2 6-4 6-7 0-4-4-7-9-7-8 0-14 7-14 18 0 4-3 7-7 7s-7-3-7-7z"
+    fill="url(#wave)"/>
+  <path
+    d="M22 62c4-13 13-24 26-30M23 83c9 17 25 27 45 27M106 54c4 10 3 22-2 33"
+    fill="none"
+    stroke="#f6f0dc"
+    stroke-width="7"
+    stroke-linecap="round"
+    opacity="0.88"/>
+</svg>

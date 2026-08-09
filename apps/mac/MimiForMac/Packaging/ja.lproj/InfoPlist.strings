@@ -1,0 +1,2 @@
+"NSAudioCaptureUsageDescription" = "選択したMacの音声を、指定した言語の翻訳音声へ変換するために使用します。";
+"NSAppleEventsUsageDescription" = "翻訳中の動画名を正しく表示するため、QuickTime Playerで再生中の動画を確認します。";

@@ -1,0 +1,20 @@
+{
+  "name": "jp-dub-local-server",
+  "private": true,
+  "version": "0.0.1",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "start:detached": "node scripts/start-detached.js",
+    "stop": "node scripts/stop.js",
+    "check": "node --check ../shared/extensionOrigin.cjs && node --check src/server.js && node --check src/audioDebug.js && node --check src/billingGuard.js && node --check src/openaiBudgetGuard.js && node --check src/openaiBridge.js && node --check src/providerPreference.js && node --check src/diagnostics.js && node --check src/geminiBridge.js && node --check src/languages.js && node --check src/localEnv.js && node --check src/originPolicy.js && node --check src/secrets.js && node --check src/settings.js && node --check src/settingsPage.js && node --check src/setupProgress.js && node --check src/usageAccounting.js && node --check src/websocket.js && node --check scripts/collect-debug.js && node --check scripts/diagnose-real.js && node --check scripts/diagnose-stream.js && node --check scripts/doctor.js && node --check scripts/start-detached.js && node --check scripts/stop.js",
+    "test": "node --test test/*.test.js",
+    "doctor": "node scripts/doctor.js",
+    "diagnose:real": "node scripts/diagnose-real.js",
+    "diagnose:stream": "node scripts/diagnose-stream.js",
+    "collect:debug": "node scripts/collect-debug.js"
+  },
+  "dependencies": {
+    "ws": "8.21.1"
+  }
+}

@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  source-checks:
+    runs-on: macos-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22.23.2
+
+      # These checks intentionally use no secrets and do not run real Chrome,
+      # Keychain, or Gemini flows.
+      - name: Node checks and tests
+        run: (cd apps/mac/local-server && npm ci --ignore-scripts && npm run check && npm test) && (cd apps/mac/extension && npm run check && npm test) && (cd apps/mac/native-host && npm run check && npm test)
+
+      - name: Swift tests
+        run: swift test --package-path apps/mac/MimiApp && swift test --package-path apps/mac/MimiForMac
+
+      - name: Test-mode setup smoke
+        run: MIMI_SETUP_TEST_MODE=1 /bin/zsh "apps/mac/setup/Mimi Setup.command"
+
+      - name: Identity and package tests
+        run: node --test scripts/test/mimi-product-identity.test.cjs && node --test scripts/test/package-chrome-extension.test.cjs && node scripts/package-chrome-extension.cjs --out="$TMPDIR/mimi-chrome-package" && node scripts/package-mimi-app.cjs --node="$(command -v node)" --dist="$TMPDIR/mimi-app-package"
+
+      - name: Security regression tests
+        run: node --test scripts/test/mimi-security-gate.test.cjs

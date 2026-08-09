@@ -1,14 +1,101 @@
-# Mimi
+<p align="center">
+  <img src="apps/mac/MimiForMac/Packaging/MimiAppIcon.png" alt="Mimi app icon" width="240">
+</p>
 
-Mimi is a local-first Mac project for listening to live translated audio. The
-repository contains three separate products: Mimi for Chrome, Mimi Setup for
-Chrome, and Mimi for Mac. The source release is intentionally conservative:
-it does not include subtitles, video downloads, offline playback, or translated
-audio caching.
+<h1 align="center">Mimi</h1>
 
-This `main` branch is the clean public repository baseline. The first source
-candidate is tracked on `release/v0.1.2`; its README describes the current
-build, privacy boundary, tests, and known limitations.
+<p align="center">
+  Live translated audio for Mac and Chrome
+</p>
 
-日本語の概要は [README.ja.md](README.ja.md) を参照してください。
+Mimi is a local-first Mac project for listening to live translated audio. This
+source candidate contains three separate products:
 
+- **Mimi for Chrome** is the Chrome extension. It captures the current tab only
+  after you press Start and plays the translated stream returned by the local
+  Mac server.
+- **Mimi Setup for Chrome** is the local setup/helper app and native host. It
+  installs the helper, checks the loopback server, and keeps the Chrome/native
+  messaging boundary explicit.
+- **Mimi for Mac** is the native Swift app. It captures selected Mac audio and
+  plays live translated audio as a development build.
+
+The source release is intentionally conservative. V1 does not create
+subtitles, download videos, export finished videos, provide offline playback,
+or cache translated audio. Audio is handled as a live stream; Mimi does not
+keep a transcript or raw audio archive.
+
+## Release status
+
+The Chrome Web Store listing is currently **0.1.1**. This repository contains
+the **0.1.2 source candidate**; it is not a claim that 0.1.2 has been uploaded,
+reviewed, or published in the Store.
+
+Mimi for Mac is currently a source/developer build. Developer ID signing and
+notarization are not available for this candidate, so it should not be treated
+as a general-user downloadable Mac binary. Listening, permissions, sleep/wake,
+VoiceOver, and long-duration hardware acceptance remain limited live checks.
+
+## Privacy and BYOK
+
+Mimi uses BYOK (Bring Your Own Key). Gemini and OpenAI API keys are configured
+on the Mac side; the Chrome extension never stores them. Normal setup stores a
+configured key in macOS Keychain; `.env.example` documents names only, and a
+real `.env` must stay local and uncommitted.
+
+When listening, the extension sends current-tab audio to the local Mimi server,
+which sends the live stream only to the provider you explicitly select:
+Gemini Live Translate (Google) or GPT Realtime (OpenAI). The selected
+provider's current terms, data handling and retention practices, usage limits,
+and charges apply. Mimi does not sell audio, use advertising trackers, or
+upload a local diagnostic bundle automatically. Do not place keys, transcripts,
+private URLs, or personal data in issues, logs, screenshots, or pull requests.
+See
+[SECURITY.md](SECURITY.md) and [docs/product/privacy-policy.md](docs/product/privacy-policy.md).
+
+Internal compatibility identifiers still contain historical `jp-dub` names in
+native-host paths and runtime settings. They are protocol compatibility
+strings, not a request to rename or expose a private repository.
+
+## Build and test from a fresh clone
+
+Use a recent Node.js LTS and the Swift toolchain provided by macOS. The
+commands below do not run a real Gemini, Chrome, or Keychain flow:
+
+```bash
+# Local server
+(cd apps/mac/local-server && npm ci --ignore-scripts && npm run check && npm test)
+
+# Chrome extension and native host
+(cd apps/mac/extension && npm run check && npm test)
+(cd apps/mac/native-host && npm run check && npm test)
+
+# Swift products
+swift test --package-path apps/mac/MimiApp
+swift test --package-path apps/mac/MimiForMac
+
+# Non-destructive setup smoke
+MIMI_SETUP_TEST_MODE=1 /bin/zsh "apps/mac/setup/Mimi Setup.command"
+
+# Product identity and package checks
+node --test scripts/test/mimi-product-identity.test.cjs
+node --test scripts/test/package-chrome-extension.test.cjs
+
+# Local packaging outputs (ignored by Git)
+node scripts/package-chrome-extension.cjs --out="$PWD/tmp/chrome-package"
+node scripts/package-mimi-app.cjs \\
+  --node="$(command -v node)" \\
+  --dist="$PWD/tmp/mimi-app-package"
+```
+
+The packaging command builds an unsigned developer app and uses the local
+Node.js runtime; it does not fetch a runtime, sign with Developer ID, notarize,
+upload to the Chrome Web Store, or open a dashboard.
+
+## Scope and contribution
+
+This repository keeps the Mac products separate from the iPhone work. Please
+read [CONTRIBUTING.md](CONTRIBUTING.md) before editing and keep generated
+outputs, credentials, raw audio, and private operational evidence out of Git.
+
+日本語の概要と制限は [README.ja.md](README.ja.md) を参照してください。

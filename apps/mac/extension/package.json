@@ -1,0 +1,10 @@
+{
+  "name": "jp-dub-chrome-extension",
+  "private": true,
+  "version": "0.1.2",
+  "type": "commonjs",
+  "scripts": {
+    "check": "node --check src/languages.js && node --check src/popup.js && node --check src/service-worker.js && node --check src/offscreen.js && node --check src/capture-worklet.js && node -e \"JSON.parse(require('fs').readFileSync('manifest.json', 'utf8'))\"",
+    "test": "node --test test/*.test.js"
+  }
+}

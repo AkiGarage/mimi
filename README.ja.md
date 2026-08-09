@@ -1,13 +1,81 @@
-# Mimi
+<p align="center">
+  <img src="apps/mac/MimiForMac/Packaging/MimiAppIcon.png" alt="Mimi アプリアイコン" width="240">
+</p>
+
+<h1 align="center">Mimi</h1>
+
+<p align="center">
+  MacとChromeで、ライブ翻訳音声を聞く
+</p>
 
 Mimi は、Mac 上でライブ翻訳音声を聞くための local-first プロジェクト
-です。Mimi for Chrome、Mimi Setup for Chrome、Mimi for Mac の3製品を
-1つの source repository で管理します。字幕、動画ダウンロード、
-オフライン再生、翻訳音声キャッシュは V1 の対象外です。
+です。1つの source repository に次の3製品を収録しています。
 
-この `main` branch は、履歴を整理した公開 repository の baseline です。
-最初の source candidate は `release/v0.1.2` にあり、詳細な build 方法、
-privacy boundary、test、既知の制限は同 branch の README に記載します。
+- **Mimi for Chrome**: Start を押した後だけ現在のタブ音声を扱う Chrome 拡張。
+- **Mimi Setup for Chrome**: local server、Keychain、Chrome native messaging の
+  セットアップを補助する Mac 側の helper/native host。
+- **Mimi for Mac**: Mac の選択した音声を取得し、翻訳音声を再生する Swift app。
 
-英語の概要は [README.md](README.md) を参照してください。
+V1 は live stream に限定しています。字幕、動画ダウンロード、完成動画の
+書き出し、オフライン再生、翻訳音声キャッシュ、transcript や raw audio の
+保存は行いません。
 
+## Release status
+
+Chrome Web Store の現在の listing は **0.1.1** です。この repository の
+source candidate は **0.1.2** ですが、Store へ upload、review、publish
+済みという意味ではありません。
+
+Mimi for Mac は source/developer build の段階です。Developer ID signing と
+notarization が利用できないため、一般ユーザー向けの配布済み binary では
+ありません。実機での聴感、権限、sleep/wake、VoiceOver、長時間動作の確認は
+まだ限定的です。
+
+## Privacy と BYOK
+
+BYOK (Bring Your Own Key) 方式です。Gemini と OpenAI の API key は Mac 側で
+設定します。Chrome extension は key を保存しません。通常の setup では設定した
+key を macOS Keychain に保存し、`.env.example` には名前だけを記載します。実際の
+`.env` はローカルに置き、Git へ commit しないでください。
+
+Listening 中は Chrome extension から local Mimi server へタブ音声を送り、
+local server はユーザーが明示的に選択した provider、Gemini Live Translate
+(Google) または GPT Realtime (OpenAI) にだけ live stream を送ります。選択した
+provider の現行 terms、data handling と retention、利用制限、料金が適用されます。
+広告 tracking や自動診断 upload はありません。key、transcript、private URL、個人
+データを issue、log、screenshot、pull request に含めないでください。
+[SECURITY.md](SECURITY.md) と [privacy policy](docs/product/privacy-policy.md)
+も確認してください。
+
+内部の native-host path や runtime settings には互換性のため `jp-dub` という
+文字列が残っています。これは protocol compatibility のための名前であり、
+private repository の公開を意味しません。
+
+## Fresh clone の build と test
+
+macOS の Node.js LTS と Swift toolchain を使ってください。次のコマンドは
+実際の Gemini、Chrome、Keychain flow を実行しません。
+
+```bash
+(cd apps/mac/local-server && npm ci --ignore-scripts && npm run check && npm test)
+(cd apps/mac/extension && npm run check && npm test)
+(cd apps/mac/native-host && npm run check && npm test)
+swift test --package-path apps/mac/MimiApp
+swift test --package-path apps/mac/MimiForMac
+MIMI_SETUP_TEST_MODE=1 /bin/zsh "apps/mac/setup/Mimi Setup.command"
+node --test scripts/test/mimi-product-identity.test.cjs
+node --test scripts/test/package-chrome-extension.test.cjs
+node scripts/package-chrome-extension.cjs --out="$PWD/tmp/chrome-package"
+node scripts/package-mimi-app.cjs \\
+  --node="$(command -v node)" \\
+  --dist="$PWD/tmp/mimi-app-package"
+```
+
+Packaging は ignored な local output に unsigned developer app を作ります。
+runtime download、Developer ID signing、notarization、Store upload は行いません。
+
+Issue や変更を送る場合は [CONTRIBUTING.md](CONTRIBUTING.md) と
+[SECURITY.md](SECURITY.md) を確認し、generated output、credential、raw audio、
+private な運用記録を Git に入れないでください。
+
+英語版は [README.md](README.md) です。

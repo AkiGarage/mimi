@@ -23,8 +23,7 @@ cd ../MimiForMac && swift test
 The setup smoke test is intentionally non-destructive:
 
 ```bash
-cd apps/mac/setup
-MIMI_SETUP_TEST_MODE=1 node setup-dialog-helper.js --help
+MIMI_SETUP_TEST_MODE=1 /bin/zsh "apps/mac/setup/Mimi Setup.command"
 ```
 
 Do not run real setup, Keychain, Chrome, or Gemini flows in automated tests.

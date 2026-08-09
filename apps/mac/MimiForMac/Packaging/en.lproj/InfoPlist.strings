@@ -1,0 +1,2 @@
+"NSAudioCaptureUsageDescription" = "Mimi uses the selected Mac audio to create translated audio in your chosen language.";
+"NSAppleEventsUsageDescription" = "Mimi reads which QuickTime Player movie is playing so it can show the correct translation target.";
