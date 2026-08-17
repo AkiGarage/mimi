@@ -27,14 +27,21 @@ keep a transcript or raw audio archive.
 
 ## Release status
 
-The Chrome Web Store listing is currently **0.1.1**. This repository contains
-the **0.1.2 source candidate**; it is not a claim that 0.1.2 has been uploaded,
-reviewed, or published in the Store.
+Mimi for Chrome **0.1.1** is publicly available from the
+[Chrome Web Store](https://chromewebstore.google.com/detail/mimi/oknekoaclmnljnlpmffphpiflcdeibgg).
+The repository contains the next **0.1.2 source candidate**; that extension
+version has not yet been uploaded, reviewed, or published in the Store.
 
-Mimi for Mac is currently a source/developer build. Developer ID signing and
-notarization are not available for this candidate, so it should not be treated
-as a general-user downloadable Mac binary. Listening, permissions, sleep/wake,
-VoiceOver, and long-duration hardware acceptance remain limited live checks.
+The Chrome helper **Mimi Setup for Chrome 0.1.2** is available as a
+[Developer ID signed and Apple-notarized download](https://github.com/AkiGarage/mimi/releases/download/v0.1.2/Mimi-0.1.2-macOS-notarized.zip).
+Its [SHA-256 checksum](https://github.com/AkiGarage/mimi/releases/download/v0.1.2/Mimi-0.1.2-macOS-notarized.zip.sha256)
+is published alongside it. Download the ZIP, move `Mimi.app` to Applications,
+open it once, then follow Mimi Setup to install the Chrome native helper and
+store the selected provider key in macOS Keychain.
+
+The separate **Mimi for Mac** product remains a source/developer build.
+Listening, permissions, sleep/wake, VoiceOver, and long-duration hardware
+acceptance remain limited live checks.
 
 ## Privacy and BYOK
 

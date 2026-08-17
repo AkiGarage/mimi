@@ -68,6 +68,7 @@ const COPY = {
     resetUsageButton: "使用記録をリセット",
     replaceKey: "APIキーを設定する",
     copyDiagnosticsButton: "診断ログをコピー",
+    downloadHelperLink: "Mimi Setupをダウンロード",
     sourceDetailLabel: "元の言語",
     inputDetailLabel: "送信した音声",
     outputDetailLabel: "翻訳音声",
@@ -166,6 +167,7 @@ const COPY = {
     resetUsageButton: "Reset local usage",
     replaceKey: "Set API keys",
     copyDiagnosticsButton: "Copy diagnostics",
+    downloadHelperLink: "Download Mimi Setup",
     sourceDetailLabel: "Source",
     inputDetailLabel: "Audio sent",
     outputDetailLabel: "Output",
@@ -620,6 +622,7 @@ function applyUiLanguage() {
   setText("limitMinutesLabel", "limitMinutesLabel");
   setText("autoStopLabel", "autoStopLabel");
   setText("resetUsageButton", "resetUsageButton");
+  setText("downloadHelperLink", "downloadHelperLink");
   setCopyDiagnosticsState(copyDiagnosticsState);
   setText("sourceDetailLabel", "sourceDetailLabel");
   setText("inputDetailLabel", "inputDetailLabel");

@@ -4,6 +4,23 @@ const path = require("node:path");
 const test = require("node:test");
 const vm = require("node:vm");
 
+const HELPER_DOWNLOAD_URL = "https://github.com/AkiGarage/mimi/releases/download/v0.1.2/Mimi-0.1.2-macOS-notarized.zip";
+
+test("popup exposes the signed Mimi Setup download in a new tab", async () => {
+  const htmlPath = path.resolve(__dirname, "..", "src", "popup.html");
+  const html = fs.readFileSync(htmlPath, "utf8");
+  assert.match(html, new RegExp(`id="downloadHelperLink"[^>]+href="${HELPER_DOWNLOAD_URL.replaceAll(".", "\\.")}"`));
+  assert.match(html, /id="downloadHelperLink"[^>]+target="_blank"[^>]+rel="noreferrer"/);
+
+  const english = loadPopupHarness();
+  await english.dispatchDomReady();
+  assert.equal(english.elements.downloadHelperLink.textContent, "Download Mimi Setup");
+
+  const japanese = loadJapanesePopupHarness();
+  await japanese.dispatchDomReady();
+  assert.equal(japanese.elements.downloadHelperLink.textContent, "Mimi Setupをダウンロード");
+});
+
 test("popup keeps visible volume percentage labels in sync with sliders", async () => {
   const harness = loadPopupHarness();
   await harness.dispatchDomReady();
@@ -613,6 +630,7 @@ function loadPopupHarness(options = {}) {
     "saveAutoStopButton",
     "resetUsageButton",
     "openKeySettingsButton",
+    "downloadHelperLink",
     "copyDiagnosticsButton",
     "originalVolume",
     "translatedVolume",
