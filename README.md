@@ -27,9 +27,9 @@ keep a transcript or raw audio archive.
 
 ## Release status
 
-Mimi for Chrome **0.1.1** is publicly available from the
+Mimi for Chrome **0.1.2** is publicly available from the
 [Chrome Web Store](https://chromewebstore.google.com/detail/mimi/oknekoaclmnljnlpmffphpiflcdeibgg).
-The repository contains the next **0.1.2 source candidate**; that extension
+The repository contains the next **0.1.3 source candidate**; that extension
 version has not yet been uploaded, reviewed, or published in the Store.
 
 The Chrome helper **Mimi Setup for Chrome 0.1.2** is available as a

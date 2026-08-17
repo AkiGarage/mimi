@@ -37,10 +37,10 @@ test("Store ZIP omits manifest.key while the source keeps the canonical Store id
   assert.equal(Object.hasOwn(sourceManifest, "key"), true);
   assert.equal(Object.hasOwn(stagedManifest, "key"), false);
   assert.equal(Object.hasOwn(zippedManifest, "key"), false);
-  assert.equal(sourceManifest.version, "0.1.2");
-  assert.equal(stagedManifest.version, "0.1.2");
-  assert.equal(zippedManifest.version, "0.1.2");
-  assert.equal(report.version, "0.1.2");
+  assert.equal(sourceManifest.version, "0.1.3");
+  assert.equal(stagedManifest.version, "0.1.3");
+  assert.equal(zippedManifest.version, "0.1.3");
+  assert.equal(report.version, "0.1.3");
   assert.equal(report.storeManifestHasKey, false);
   assert.equal(report.extensionId, "oknekoaclmnljnlpmffphpiflcdeibgg");
 });
