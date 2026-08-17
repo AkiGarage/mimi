@@ -22,14 +22,21 @@ V1 は live stream に限定しています。字幕、動画ダウンロード�
 
 ## Release status
 
-Chrome Web Store の現在の listing は **0.1.1** です。この repository の
-source candidate は **0.1.2** ですが、Store へ upload、review、publish
-済みという意味ではありません。
+Mimi for Chrome **0.1.1** は
+[Chrome Web Store](https://chromewebstore.google.com/detail/mimi/oknekoaclmnljnlpmffphpiflcdeibgg)
+から誰でもインストールできます。この repository には次の **0.1.2 source
+candidate** がありますが、extension 0.1.2 はまだ Store へ upload、review、
+publish されていません。
 
-Mimi for Mac は source/developer build の段階です。Developer ID signing と
-notarization が利用できないため、一般ユーザー向けの配布済み binary では
-ありません。実機での聴感、権限、sleep/wake、VoiceOver、長時間動作の確認は
-まだ限定的です。
+Chrome helper の **Mimi Setup for Chrome 0.1.2** は
+[Developer ID署名・Apple notarization済みZIP](https://github.com/AkiGarage/mimi/releases/download/v0.1.2/Mimi-0.1.2-macOS-notarized.zip)
+として公開しています。[SHA-256 checksum](https://github.com/AkiGarage/mimi/releases/download/v0.1.2/Mimi-0.1.2-macOS-notarized.zip.sha256)
+も同じReleaseにあります。ZIPを展開して `Mimi.app` をApplicationsへ移動し、
+一度起動してからMimi Setupの案内に従い、Chrome native helperのinstallと
+provider keyのmacOS Keychain保存を行ってください。
+
+別製品の **Mimi for Mac** は引き続きsource/developer buildです。実機での聴感、
+権限、sleep/wake、VoiceOver、長時間動作の確認はまだ限定的です。
 
 ## Privacy と BYOK
 

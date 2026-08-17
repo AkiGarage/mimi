@@ -316,6 +316,26 @@ select {
   padding: 8px;
 }
 
+.helper-download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  margin: -4px 0 0;
+  border: 1px solid rgb(109 222 247 / 30%);
+  border-radius: 9px;
+  background: rgb(69 199 234 / 12%);
+  color: #a8efff;
+  font-size: 12px;
+  font-weight: 760;
+  text-decoration: none;
+}
+
+.helper-download:focus-visible {
+  outline: 2px solid #83e9ff;
+  outline-offset: 2px;
+}
+
 .controls {
   display: grid;
   grid-template-columns: 1fr 1fr;
