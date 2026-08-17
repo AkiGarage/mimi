@@ -22,10 +22,10 @@ V1 は live stream に限定しています。字幕、動画ダウンロード�
 
 ## Release status
 
-Mimi for Chrome **0.1.1** は
+Mimi for Chrome **0.1.2** は
 [Chrome Web Store](https://chromewebstore.google.com/detail/mimi/oknekoaclmnljnlpmffphpiflcdeibgg)
-から誰でもインストールできます。この repository には次の **0.1.2 source
-candidate** がありますが、extension 0.1.2 はまだ Store へ upload、review、
+から誰でもインストールできます。この repository には次の **0.1.3 source
+candidate** がありますが、extension 0.1.3 はまだ Store へ upload、review、
 publish されていません。
 
 Chrome helper の **Mimi Setup for Chrome 0.1.2** は
